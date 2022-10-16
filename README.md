@@ -13,13 +13,16 @@ Use the Issues tab above to report any problems or enhancement requests.
 
 Current known issues are as follows:
 
- • Supplied URL parameters are not signed properly thus resulting in a invalid signature. 
+ • Supplied URL parameters are not signed properly thus resulting in a invalid signature.
  
- • No ability to disable entries
+ • No ability to disable entries.
  
- • Table is editable by dbl click but does not change actual data
+ • Table is editable by dbl click but does not change actual data.
  
- • Boolean value in Table is not representated as Checkbox 
+ • Boolean value in Table is not representated as Checkbox.
+ 
+ • Clicking the 'Edit' or 'Add' buttons will create multiple windows.
+
  
 ## Usage/Examples
 
@@ -32,22 +35,22 @@ Navigate to Extender
 Click 'Add'
 Change 'Extension Type' to Python
 Select the 'PlatformAuthenticationExtended.py' file
-Click 'Next' and the Extension should load successfully. 
+Click 'Next' and the Extension should load successfully
 
 To Use:
 
 Navigate to the Platform Authentication Tab
 Click 'Add' 
-Set your Destination Host to the domain ONLY. 
+Set your Destination Host to the domain ONLY
 Destination Host: Example.com
 Authentication Type: OAuth v1 
 Username: <CONSUMER KEY>
 Password: <CONSUMER SECRET>
 Click 'Ok' 
-You should see your new entry in the table. 
-By default, your new entry will be enabled automatically. 
+You should see your new entry in the table
+By default, your new entry will be enabled automatically 
 Currently, there's no way to disable an entry. Just remove it by select the row and clicking 'Remove'
-If you want to keep this entry but disable it, you can boolean value to false through the platformAuthentication.json file. 
+If you want to keep this entry but disable it, you can boolean value to false through the platformAuthentication.json file
 ```
 
 
