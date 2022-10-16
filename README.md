@@ -14,7 +14,10 @@ Use the Issues tab above to report any problems or enhancement requests.
 Current known issues are as follows:
 
  • Supplied URL parameters are not signed properly thus resulting in a invalid signature. 
-
+ • No ability to disable entries
+ • Table is editable by dbl click but does not change actual data
+ • Boolean value in Table is not representated as Checkbox 
+ 
 ## Usage/Examples
 
 ```javascript
