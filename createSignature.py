@@ -25,9 +25,6 @@ def normalize_data(http_method, request_url, params):
 
         query_str = '&'.join(['='.join([key, urllib.quote(params.get(key, ''
                          ), '')]) for key in sorted(params.keys())])
-        print('&'.join([urllib.quote(val, '') for val in
-                        [http_method.upper(), newURL,Qparams+'&'+query_str]
-                        if val is not None]))
         return '&'.join([urllib.quote(val, '') for val in
                         [http_method.upper(), newURL,Qparams+'&'+query_str]
                         if val is not None])
