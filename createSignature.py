@@ -16,12 +16,27 @@ def normalize_data(http_method, request_url, params):
     :rtype: str
     :return: data string for calculate oauth1.0 signature
     '''
+    pattern = '(\\?).*'
+    identify = re.search(pattern, str(request_url))
+    if(identify != None):
+        query_params = identify.group(0)
+        Qparams = str(query_params).replace('?','')
+        newURL = str(request_url).replace(identify.group(0),'')
 
-    query_str = '&'.join(['='.join([key, urllib.quote(params.get(key, ''
+        query_str = '&'.join(['='.join([key, urllib.quote(params.get(key, ''
                          ), '')]) for key in sorted(params.keys())])
-    return '&'.join([urllib.quote(val, '') for val in
-                    [http_method.upper(), request_url, query_str]
-                    if val is not None])
+        print('&'.join([urllib.quote(val, '') for val in
+                        [http_method.upper(), newURL,Qparams+'&'+query_str]
+                        if val is not None]))
+        return '&'.join([urllib.quote(val, '') for val in
+                        [http_method.upper(), newURL,Qparams+'&'+query_str]
+                        if val is not None])
+    else:
+        query_str = '&'.join(['='.join([key, urllib.quote(params.get(key, ''
+                             ), '')]) for key in sorted(params.keys())])
+        return '&'.join([urllib.quote(val, '') for val in
+                        [http_method.upper(), request_url, query_str]
+                        if val is not None])
 
 
 def normalize_key(consumer_secret, resource_owner_secret=None):
