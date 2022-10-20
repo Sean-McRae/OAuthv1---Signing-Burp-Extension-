@@ -4,7 +4,7 @@
 
 
 The purpose of this extension is to provide additional authentication methods that are not natively supported by Burp Suite. 
-Currently, this tool only supports OAuth v1 but will eventually include AWS Signing (Signature Version 4).
+Currently, this tool only supports OAuth v1.
 
 
 ## Issues and Enhancements
