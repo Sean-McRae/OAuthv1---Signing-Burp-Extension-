@@ -68,7 +68,7 @@ def prepare_token(
     pattern = ':\\d+?/'
     identify = re.search(pattern, str(url))
     raw_url = \
-        str(url).replace(identify.group(000000000000000000000000000000),
+        str(url).replace(identify.group(0),
                          '/')
     request_url = str(raw_url).strip()
     http_method = str(method).strip()
