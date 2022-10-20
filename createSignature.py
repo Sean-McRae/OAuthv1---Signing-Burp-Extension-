@@ -1,4 +1,6 @@
 import urllib
+import json
+import urlparse
 from time import time
 import hashlib
 import hmac
@@ -22,11 +24,13 @@ def normalize_data(http_method, request_url, params):
         query_params = identify.group(0)
         Qparams = str(query_params).replace('?','')
         newURL = str(request_url).replace(identify.group(0),'')
+        conversion_params = ({x.split('=')[0]:str(x.split('=')[1]) for x in Qparams.split("&")})
+        params.update(conversion_params) 
 
         query_str = '&'.join(['='.join([key, urllib.quote(params.get(key, ''
                          ), '')]) for key in sorted(params.keys())])
         return '&'.join([urllib.quote(val, '') for val in
-                        [http_method.upper(), newURL,Qparams+'&'+query_str]
+                        [http_method.upper(), newURL,query_str]
                         if val is not None])
     else:
         query_str = '&'.join(['='.join([key, urllib.quote(params.get(key, ''
