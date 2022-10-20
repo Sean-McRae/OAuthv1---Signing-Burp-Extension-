@@ -4,9 +4,14 @@ from javax.swing import JScrollPane, JTable, JPanel, JTextField, \
     JLabel, JComboBox, JButton, table, BorderFactory, JFrame
 from java.awt import Color, GridBagConstraints, GridBagLayout, Insets, \
     Dimension
+from javax.swing.table import DefaultTableModel
 from createSignature import *
 import re
 
+class TableModel(DefaultTableModel):
+
+    def isCellEditable(self, *args):
+        return False
 
 class BurpExtender(IBurpExtender, ITab, IHttpListener):
 
@@ -266,7 +271,7 @@ class BurpExtender(IBurpExtender, ITab, IHttpListener):
             with open(file_path, 'w') as f:
                 json.dump(appendData, f)
 
-        tableModel = table.DefaultTableModel(data, head)
+        tableModel = TableModel(data, head)
         myTable = JTable()
         panel.setBorder(BorderFactory.createLineBorder(Color(0, 0, 0)))
         jScrollPane.setViewportView(myTable)
@@ -303,7 +308,7 @@ class BurpExtender(IBurpExtender, ITab, IHttpListener):
         def refreshDataTable():
             panel.remove(jScrollPane)
             data = fetchCredentials()
-            tableModel = table.DefaultTableModel(data, head)
+            tableModel = TableModel(data, head)
             myTable.setModel(tableModel)
             jScrollPane.setViewportView(myTable)
             panel.add(jScrollPane, gbc)
