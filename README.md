@@ -16,9 +16,7 @@ Current known issues are as follows:
  • Supplied URL parameters are not signed properly thus resulting in an invalid signature.
  
  • No ability to disable entries.
- 
- • Table is editable by dbl click but does not change actual data.
- 
+  
  • Boolean value in Table is not represented as Checkbox.
  
 ## Usage/Examples
