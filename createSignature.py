@@ -1,5 +1,4 @@
 import urllib
-import urlparse
 from time import time
 import hashlib
 import hmac
