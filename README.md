@@ -21,9 +21,6 @@ Current known issues are as follows:
  
  • Boolean value in Table is not representated as Checkbox.
  
- • Clicking the 'Edit' or 'Add' buttons will create multiple windows.
-
- 
 ## Usage/Examples
 
 ```javascript
