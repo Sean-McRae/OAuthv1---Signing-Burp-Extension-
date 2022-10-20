@@ -13,8 +13,6 @@ Use the Issues tab above to report any problems or enhancement requests.
 
 Current known issues are as follows:
 
- • Supplied URL parameters are not signed properly thus resulting in an invalid signature.
- 
  • No ability to disable entries.
   
  • Boolean value in Table is not represented as Checkbox.
