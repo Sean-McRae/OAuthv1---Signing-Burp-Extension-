@@ -26,7 +26,7 @@ Current known issues are as follows:
 ```javascript
 To Install:
 
-git clone https://github.com/L1GH7/Platform-Authentication-Extended.git
+git clone https://github.com/L1GH7/OAuthv1---Signing-Burp-Extension-.git
 Open Burp
 Navigate to Extender
 Click 'Add'
