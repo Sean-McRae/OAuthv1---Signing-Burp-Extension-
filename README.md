@@ -1,4 +1,4 @@
-# Platform Authentication Extended
+# OAuthv1 - Signing (Burp Extension)
 
 ## Description
 
@@ -13,13 +13,13 @@ Use the Issues tab above to report any problems or enhancement requests.
 
 Current known issues are as follows:
 
- • Supplied URL parameters are not signed properly thus resulting in a invalid signature.
+ • Supplied URL parameters are not signed properly thus resulting in an invalid signature.
  
  • No ability to disable entries.
  
  • Table is editable by dbl click but does not change actual data.
  
- • Boolean value in Table is not representated as Checkbox.
+ • Boolean value in Table is not represented as Checkbox.
  
 ## Usage/Examples
 
@@ -46,7 +46,7 @@ Password: <CONSUMER SECRET>
 Click 'Ok' 
 You should see your new entry in the table
 By default, your new entry will be enabled automatically 
-Currently, there's no way to disable an entry. Just remove it by select the row and clicking 'Remove'
+Currently, there's no way to disable an entry. Just remove it by selecting the row and click 'Remove'
 If you want to keep this entry but disable it, you can boolean value to false through the platformAuthentication.json file
 ```
 
