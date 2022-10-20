@@ -1,5 +1,4 @@
 import urllib
-import json
 import urlparse
 from time import time
 import hashlib
