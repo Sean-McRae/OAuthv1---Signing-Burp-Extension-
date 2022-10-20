@@ -11,7 +11,7 @@ import re
 class BurpExtender(IBurpExtender, ITab, IHttpListener):
 
     def getTabCaption(self):
-        return 'Platform Authentication'
+        return 'OAuthv1 - Signing'
 
     def getUiComponent(self):
         panel = JPanel()
@@ -314,7 +314,7 @@ class BurpExtender(IBurpExtender, ITab, IHttpListener):
         self._callbacks = callbacks
         self._helpers = callbacks.getHelpers()
         callbacks.registerHttpListener(self)
-        callbacks.setExtensionName('Platform Authentication - Extended')
+        callbacks.setExtensionName('OAuthv1 - Signing')
         callbacks.addSuiteTab(self)
 
     def processHttpMessage(
