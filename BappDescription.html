@@ -1,0 +1,18 @@
+<p>The purpose of this extension is to provide additional authentication methods that are not natively supported by Burp Suite. Currently, this tool only supports OAuth v1.</p>
+
+<p>Usage</p>
+
+<ul>
+	<li>Navigate to the Platform Authentication Tab</li>
+	<li>Click 'Add'</li>
+	<li>Set your Destination Host to the domain ONLY</li>
+	<li>Destination Host: Example.com</li>
+	<li>Authentication Type: OAuth v1</li>
+	<li>Username: &lt;CONSUMER KEY&gt;</li>
+	<li>Password: &lt;CONSUMER SECRET&gt;</li>
+	<li>Click 'Ok'</li>
+	<li>You should see your new entry in the table</li>
+	<li>By default, your new entry will be enabled automatically.</li>
+	<li>Currently there's no way to disable an entry. Just remove it by selecting the row and click 'Remove'.</li>
+	<li>If you want to keep this entry but disable it, you can boolean value to false through the platformAuthentication.json file</li>
+</ul>
