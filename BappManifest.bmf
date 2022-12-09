@@ -1,0 +1,13 @@
+Uuid: 4d50027dc8294ec58c659325b383378b
+ExtensionType: 2
+Name: OAuthv1 Authentication
+RepoName: oauthv1
+ScreenVersion: 1.0
+SerialVersion: 2
+MinPlatformVersion: 0
+ProOnly: False
+Author: Sean McRae
+ShortDescription: Provide additional authentication methods - currently this tool only supports OAuth v1
+EntryPoint: PlatformAuthenticationExtended.py
+BuildCommand: 
+SupportedProducts: Pro, Community
