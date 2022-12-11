@@ -3,7 +3,7 @@
 ## Description
 
 
-The purpose of this extension is to provide additional authentication methods that are not natively supported by Burp Suite. 
+The purpose of this extension is to provide an additional authentication method that is not natively supported by Burp Suite. 
 Currently, this tool only supports OAuth v1.
 
 
@@ -13,14 +13,14 @@ Use the Issues tab above to report any problems or enhancement requests.
 
 Current known issues are as follows:
 
- • No ability to disable entries.
+ ~~• No ability to disable entries.~~
   
- • Boolean value in Table is not represented as Checkbox.
+ ~~• Boolean value in Table is not represented as Checkbox.~~
  
 ## Usage/Examples
 
 ```javascript
-To Install:
+To Install Manually:
 
 git clone https://github.com/L1GH7/OAuthv1---Signing-Burp-Extension-.git
 Open Burp
@@ -37,8 +37,8 @@ Click 'Add'
 Set your Destination Host to the domain ONLY
 Destination Host: Example.com
 Authentication Type: OAuth v1 
-Username: <CONSUMER KEY>
-Password: <CONSUMER SECRET>
+Consumer Key: <CONSUMER KEY>
+Consumer Secret: <CONSUMER SECRET>
 Click 'Ok' 
 You should see your new entry in the table
 By default, your new entry will be enabled automatically 

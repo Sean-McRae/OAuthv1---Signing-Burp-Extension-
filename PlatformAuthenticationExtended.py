@@ -1,17 +1,30 @@
 from burp import IBurpExtender, IHttpListener
 from burp import ITab
-from javax.swing import JScrollPane, JTable, JPanel, JTextField, \
-    JLabel, JComboBox, JButton, table, BorderFactory, JFrame
-from java.awt import Color, GridBagConstraints, GridBagLayout, Insets, \
-    Dimension
-from javax.swing.table import DefaultTableModel
+from javax.swing import JScrollPane, JTable, JPanel, JTextField, JLabel, JComboBox, JButton, table, BorderFactory, JFrame # noqa
+from java.awt import Color, GridBagConstraints, GridBagLayout, Insets, Dimension # noqa
+from javax.swing.table import DefaultTableModel # noqa
 from createSignature import *
+from java.lang import String  # noqa
+from java.lang import Boolean  # noqa
 import re
 
 class TableModel(DefaultTableModel):
 
-    def isCellEditable(self, *args):
-        return False
+    def isCellEditable(self, row, col):
+        return col == 0
+
+    def getColumnClass(self, columnIndex):
+        if (columnIndex == 0):
+            type = Boolean
+            return type
+        else:
+            return String
+
+    def setValueAt( self, value, row, columnIndex ):
+        if columnIndex == 0:
+            global updateTable
+            updateTable(row,value)
+
 
 class BurpExtender(IBurpExtender, ITab, IHttpListener):
 
@@ -21,6 +34,19 @@ class BurpExtender(IBurpExtender, ITab, IHttpListener):
     def getUiComponent(self):
         panel = JPanel()
         jScrollPane = JScrollPane()
+
+        global updateTable
+
+        def updateTable(row,value):
+            import json
+            file_path = 'platformAuthentication.json'
+            with open(file_path) as f:
+                data = f.read()
+            js = json.loads(data)
+            js[row]['Enabled'] = value
+            with open('platformAuthentication.json', 'w') as f:
+                f.write(json.dumps(js))
+            refreshDataTable()
 
         def addCredentials(event):
             frame = JFrame('Add Platform Authentication Credentials')
@@ -34,17 +60,17 @@ class BurpExtender(IBurpExtender, ITab, IHttpListener):
             authenticationTypes = ['OAuth v1']
             authenticationType = JComboBox(authenticationTypes)
             authenticationTypeJLabel = JLabel('Authentication Type: ')
-            usernameField = JTextField(30)
-            usernameFieldJLabel = JLabel('Username: ')
-            passwordField = JTextField(30)
-            passwordFieldJLabel = JLabel('Password: ')
+            Consumer_KeyField = JTextField(30)
+            Consumer_KeyFieldJLabel = JLabel('Consumer Key: ')
+            Consumer_SecretField = JTextField(30)
+            Consumer_SecretFieldJLabel = JLabel('Consumer Secret: ')
 
             def saveNewEntry(event):
                 Host = destinationHost.getText()
                 Type = authenticationType.getSelectedItem()
-                Username = usernameField.getText()
-                Password = passwordField.getText()
-                appendNewCredentials(Host, Type, Username, Password)
+                Consumer_Key = Consumer_KeyField.getText()
+                Consumer_Secret = Consumer_SecretField.getText()
+                appendNewCredentials(Host, Type, Consumer_Key, Consumer_Secret)
                 refreshDataTable()
                 frame.dispose()
 
@@ -73,19 +99,19 @@ class BurpExtender(IBurpExtender, ITab, IHttpListener):
             gbc.fill = GridBagConstraints.HORIZONTAL
             gbc.gridx = 0
             gbc.gridy = 2
-            frame.add(usernameFieldJLabel, gbc)
+            frame.add(Consumer_KeyFieldJLabel, gbc)
             gbc.fill = GridBagConstraints.HORIZONTAL
             gbc.gridx = 1
             gbc.gridy = 2
-            frame.add(usernameField, gbc)
+            frame.add(Consumer_KeyField, gbc)
             gbc.fill = GridBagConstraints.HORIZONTAL
             gbc.gridx = 0
             gbc.gridy = 3
-            frame.add(passwordFieldJLabel, gbc)
+            frame.add(Consumer_SecretFieldJLabel, gbc)
             gbc.fill = GridBagConstraints.HORIZONTAL
             gbc.gridx = 1
             gbc.gridy = 3
-            frame.add(passwordField, gbc)
+            frame.add(Consumer_SecretField, gbc)
             gbc.fill = GridBagConstraints.HORIZONTAL
             gbc.gridwidth = 1
             gbc.gridx = 1
@@ -113,19 +139,19 @@ class BurpExtender(IBurpExtender, ITab, IHttpListener):
             authenticationTypes = ['OAuth v1']
             authenticationType = JComboBox(authenticationTypes)
             authenticationTypeJLabel = JLabel('Authentication Type: ')
-            usernameField = JTextField(30)
-            usernameFieldJLabel = JLabel('Username: ')
-            passwordField = JTextField(30)
-            passwordFieldJLabel = JLabel('Password: ')
+            Consumer_KeyField = JTextField(30)
+            Consumer_KeyFieldJLabel = JLabel('Consumer Key: ')
+            Consumer_SecretField = JTextField(30)
+            Consumer_SecretFieldJLabel = JLabel('Consumer Secret: ')
             file_path = 'platformAuthentication.json'
             with open(file_path) as f:
                 platformJSON = json.load(f)
             selectedObject = myTable.getSelectedRow()
             destinationHost.setText(platformJSON[selectedObject]['Destination Host'
                                     ])
-            usernameField.setText(platformJSON[selectedObject]['Username'
+            Consumer_KeyField.setText(platformJSON[selectedObject]['Consumer Key'
                                   ])
-            passwordField.setText(platformJSON[selectedObject]['Password'
+            Consumer_SecretField.setText(platformJSON[selectedObject]['Consumer Secret'
                                   ])
 
             def saveEditEntry(event):
@@ -136,8 +162,8 @@ class BurpExtender(IBurpExtender, ITab, IHttpListener):
                 js = json.loads(data)
                 js[selectedObject]['Destination Host'] = \
                     destinationHost.getText()
-                js[selectedObject]['Username'] = usernameField.getText()
-                js[selectedObject]['Password'] = passwordField.getText()
+                js[selectedObject]['Consumer Key'] = Consumer_KeyField.getText()
+                js[selectedObject]['Consumer Secret'] = Consumer_SecretField.getText()
                 with open('platformAuthentication.json', 'w') as f:
                     f.write(json.dumps(js))
                 refreshDataTable()
@@ -169,19 +195,19 @@ class BurpExtender(IBurpExtender, ITab, IHttpListener):
             gbc.fill = GridBagConstraints.HORIZONTAL
             gbc.gridx = 0
             gbc.gridy = 2
-            frame.add(usernameFieldJLabel, gbc)
+            frame.add(Consumer_KeyFieldJLabel, gbc)
             gbc.fill = GridBagConstraints.HORIZONTAL
             gbc.gridx = 1
             gbc.gridy = 2
-            frame.add(usernameField, gbc)
+            frame.add(Consumer_KeyField, gbc)
             gbc.fill = GridBagConstraints.HORIZONTAL
             gbc.gridx = 0
             gbc.gridy = 3
-            frame.add(passwordFieldJLabel, gbc)
+            frame.add(Consumer_SecretFieldJLabel, gbc)
             gbc.fill = GridBagConstraints.HORIZONTAL
             gbc.gridx = 1
             gbc.gridy = 3
-            frame.add(passwordField, gbc)
+            frame.add(Consumer_SecretField, gbc)
             gbc.fill = GridBagConstraints.HORIZONTAL
             gbc.gridwidth = 1
             gbc.gridx = 1
@@ -215,7 +241,7 @@ class BurpExtender(IBurpExtender, ITab, IHttpListener):
 
         removeEntrybutton = JButton('Remove',
                                     actionPerformed=removeNewEntry)
-        head = ['Enabled', 'Destination Host', 'Type', 'Username']
+        head = ['Enabled', 'Destination Host', 'Type', 'Consumer Key']
 
         def fetchCredentials():
             import json
@@ -229,8 +255,8 @@ class BurpExtender(IBurpExtender, ITab, IHttpListener):
                     'Enabled': None,
                     'Destination Host': None,
                     'Type': None,
-                    'Username': None,
-                    'Password': None,
+                    'Consumer Key': None,
+                    'Consumer Secret': None,
                     }]
                 with open('platformAuthentication.json', 'w') as f:
                     f.write(json.dumps(dictionary))
@@ -243,26 +269,27 @@ class BurpExtender(IBurpExtender, ITab, IHttpListener):
                 newList.append(platformJSON[i]['Enabled'])
                 newList.append(platformJSON[i]['Destination Host'])
                 newList.append(platformJSON[i]['Type'])
-                newList.append(platformJSON[i]['Username'])
+                newList.append(platformJSON[i]['Consumer Key'])
                 tableInfo.append(newList)
                 i = i + 1
             return tableInfo
 
+        global data
         data = fetchCredentials()
 
         def appendNewCredentials(
             Host,
             Type,
-            Username,
-            Password,
+            Consumer_Key,
+            Consumer_Secret,
             ):
             import json
             newCredential = {
                 'Enabled': True,
                 'Destination Host': Host,
                 'Type': Type,
-                'Username': Username,
-                'Password': Password,
+                'Consumer Key': Consumer_Key,
+                'Consumer Secret': Consumer_Secret,
                 }
             file_path = 'platformAuthentication.json'
             with open(file_path) as f:
@@ -339,8 +366,8 @@ class BurpExtender(IBurpExtender, ITab, IHttpListener):
                 httpRequest = self._helpers.analyzeRequest(message)
                 service = message.getHttpService()
                 if i['Destination Host'] == service.getHost() and i['Enabled'] == True:
-                    consumer_key = i['Username']
-                    consumer_key_secret = i['Password']
+                    consumer_key = i['Consumer Key']
+                    consumer_key_secret = i['Consumer Secret']
                     headers = requestInfo.getHeaders()
                     pattern = 'Authorization: OAuth'
                     strHeader = ''
